@@ -4,7 +4,7 @@ const App=express();
 
 App.use(express.json());
 App.use(cors());
-const PORT= 3001;
+const PORT=process.env.PORT || 3001;
 App.listen(PORT,()=>{console.log(`Servidor corriendo en puerto ${PORT}`)});
 let notes=[
     {
