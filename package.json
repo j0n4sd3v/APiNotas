@@ -1,0 +1,25 @@
+{
+  "name": "clase4bootcamp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "lint": "eslint --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "4.17.2",
+    "nodemon": "2.0.15"
+  },
+  "devDependencies": {
+    "standard": "16.0.4"
+  },
+  "eslintConfig": {
+    "extendes": "./node_modules/standard/eslinrc.js"
+  }
+}
