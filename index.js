@@ -2,7 +2,6 @@ require('./mongo');
 const Note =require('./Models/Note');
 const express = require('express');
 const cors=require('cors');
-const res = require('express/lib/response');
 const App=express();
 
 App.use(express.json());
@@ -31,18 +30,19 @@ App.get('/api/notes',(request,response)=>{
 });
 
 App.get('/api/notes/:userID',(request,response)=>{
-   const note= notes.filter(item=>item.userId==request.params.userID);
-    response.json(note);
+    const {userID}= request.params;
+    Note.find({userId:userID}).then(note=>{
+        response.json(note);
+    })
 });
 
-App.delete('/api/notes/:id',(request,response)=>{
-   const id=request.body;
-   Note.findByIdAndRemove(id).then(result=>{
-
+App.delete('/api/notes/:id',(request,response,next)=>{
+    const {id}=request.params;
+    Note.findByIdAndRemove(id).then(result=>{
+      
    }).catch(er=>next(er));
    response.status(204).end();
 });
-
 
 App.post('/api/notes',(request,response)=>{
     const note=request.body;
@@ -50,12 +50,11 @@ App.post('/api/notes',(request,response)=>{
       const newNote=new Note({...note});
       newNote.save()
         .then(res=>{
-            console.log(res);
+            response.json(res);
             mongoose.connection.close();
         })
         .catch(er=>console.error(er))
     }
-    response.json(res);
 });
 
 App.use((reques,response)=>{
