@@ -1,6 +1,9 @@
+require('dotenv').config();
 const mongoose=require('mongoose');
-
-const conectionString='mongodb+srv://jonasdev:dQLd4e629KYPqq5@cluster0.htgcm.mongodb.net/App_notes?retryWrites=true&w=majority'
+const {MONGO_DB_URI,MONGO_DB_URI_TEST,NODE_ENV} =process.env;
+const conectionString=NODE_ENV==='test'
+    ?MONGO_DB_URI_TEST
+    :MONGO_DB_URI;
 
 //conection to db
 mongoose.connect(conectionString)
