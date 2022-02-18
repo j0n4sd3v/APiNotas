@@ -7,7 +7,8 @@
     "dev": "SET NODE_ENV=development & nodemon index.js",
     "start": "SET NODE_ENV=production & node index.js",
     "lint": "eslint --fix",
-    "test": "SET NODE_ENV=test & jest --verbose"
+    "test": "SET NODE_ENV=test & jest --verbose --silent",
+    "test:watch":"npm run test -- --watch"
   },
   "keywords": [],
   "author": "",

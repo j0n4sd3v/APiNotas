@@ -9,7 +9,7 @@ const handleError = require('./Middleware/handleError');
 App.use(express.json());
 App.use(cors());
 const PORT=process.env.PORT||3001;
-App.listen(PORT,()=>{console.log(`Servidor corriendo en puerto ${PORT}`)});
+const server=App.listen(PORT,()=>{console.log(`Servidor corriendo en puerto ${PORT}`)});
 //let notes=[];
 /*const http= require('http');
 const App= http.createServer((request,response)=>{
@@ -75,4 +75,4 @@ App.put('/api/notes/:id',(request,response,next)=>{
 App.use(notFound);
 App.use(handleError)
 
-module.exports=App;
+module.exports={App,server};
