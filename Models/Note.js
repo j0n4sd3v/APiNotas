@@ -3,9 +3,12 @@ const {Schema,model} =mongoose;
 
 //define schema for the data
 const notesSchema =new Schema({
-    userId:Number,
     title:String,
-    body:String
+    body:String,
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    }
 })
 
 notesSchema.set('toJSON',{

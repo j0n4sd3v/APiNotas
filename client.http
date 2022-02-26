@@ -21,3 +21,12 @@ Content-Type: application/json
     "title":"que tal, te fue...",
     "body":"esto seguro que funca asi!"
 }
+###
+POST http://localhost:3001/api/users/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"jonasdev.es",
+    "name":"jonathan",
+    "password":"jonaspassword"
+}

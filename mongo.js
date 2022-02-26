@@ -8,7 +8,7 @@ const conectionString=NODE_ENV==='test'
 //conection to db
 mongoose.connect(conectionString)
     .then(()=>{
-        console.log('conection ok!')
+        console.log('conection ok! at '+conectionString+ ' database')
     })
     .catch((er)=>{
         console.error(er)
