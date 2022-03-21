@@ -8,9 +8,9 @@ POST http://localhost:3001/api/notes/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "userId":"62339fade2973defd689e76b",
-    "title":"bueno,ahora?",
-    "body":"ahora, se pregunta el desarrolldor, que are!?"
+    "userId":"6238b7dd2225092971ef746d",
+    "title":"primer post",
+    "body":"este es el body bady , vidu dada"
 }
 ###
 PUT http://localhost:3001/api/notes/620a7bee815c37e14c8b57f9 HTTP/1.1
@@ -26,9 +26,18 @@ POST http://localhost:3001/api/users/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "username":"jonasdev.es",
-    "name":"jonathan",
-    "password":"jonaspassword"
+    "username":"jon",
+    "name":"jon",
+    "password":"1234"
 }
 ###
 GET http://localhost:3001/api/users/ HTTP/1.1
+
+###
+POST http://localhost:3001/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"jon",
+    "password":"password"
+}

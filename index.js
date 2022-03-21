@@ -7,6 +7,7 @@ const notFound= require('./Middleware/notFound.js');
 const handleError = require('./Middleware/handleError');
 const notesRouter=require('./Controllers/notes');
 const usersRouter=require('./Controllers/users');
+const loginRouter=require('./Controllers/login');
 
 App.use(express.json());
 App.use(cors());
@@ -23,8 +24,9 @@ App.get('/',(request,response,next)=>{
     response.send('<h1>Welcome to api notes</h1>')
 });
 
-App.use('/api/notes',notesRouter)
+App.use('/api/notes',notesRouter);
 App.use('/api/users',usersRouter);
+App.use('/api/login',loginRouter);
 App.use(notFound);
 App.use(handleError)
 
