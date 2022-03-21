@@ -1,8 +1,11 @@
 const notesRouter=require('express').Router();
 const Note=require('../Models/Note');
+const User=require('../Models/User');
 
 notesRouter.get('/',(request,response)=>{
-    Note.find({})
+    Note.find({}).populate('user',{
+        username:1
+    })
      .then((notes)=>{
         response.json(notes);       
      })
@@ -16,24 +19,40 @@ notesRouter.get('/',(request,response)=>{
      }).catch(error=>next(error))
  });
  
- notesRouter.delete('/:id',(request,response,next)=>{
+ notesRouter.delete('/:id',async(request,response,next)=>{
      const {id}=request.params;
-     Note.findByIdAndRemove(id).then(result=>{
-       
-    }).catch(error=>next(error));
+     try{
+        const note=await Note.findById(id);
+        const postUser=await User.findById(note.user);
+        const notes=postUser.notes.filter((note)=>note!=id);
+        postUser.notes=notes;
+        await postUser.save();
+        const resp=await Note.findByIdAndRemove(id)
+     } 
+    catch(error){
+        next(error)
+    };
     response.status(204).end();
  });
  
- notesRouter.post('/',(request,response,next)=>{
-     const note=request.body;
-     if(note!==""){
-       const newNote=new Note({...note});
-       newNote.save()
-         .then(res=>{
-             response.json(res);
-             mongoose.connection.close();
-         })
-         .catch(error=>next(error))
+ notesRouter.post('/',async(request,response,next)=>{
+     const {userId,title,body}=request.body;
+     if(body!==""){
+       const postUser= await User.findById(userId);  
+       const newNote=new Note({
+            title:title,
+            body:body,
+            user:postUser._id
+       });
+       try{
+        const savedNote=await newNote.save();
+        postUser.notes=postUser.notes.concat(savedNote._id);
+        await postUser.save();
+        response.json(savedNote);
+       }
+        catch(e){
+
+        }
      }
  });
  notesRouter.put('/:id',(request,response,next)=>{
